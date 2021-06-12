@@ -7,7 +7,8 @@ const {
   Collection,
   Lambda,
   Documents,
-  Map
+  Map,
+  Var
 } = fdb.query
 
 export default async function handler(req,res) {
@@ -19,20 +20,12 @@ export default async function handler(req,res) {
                 Collection('Tasks')
                 )
             ),
-            Lambda(x => Get(x))
+            Lambda('ref', Get(Var('ref')))
             )
         )
-        
-        const newdbs = dbs.data.map((db) => {
-            return { ...db.data };
-          });
-        const dbsmap = dbs.data.map((Tasks) => {
-            Tasks.id = Tasks.ref.id
-            delete Tasks.ref
-            return Tasks
-        })
-        console.log(dbs.data.id)
-        res.status(200).json(dbs)
+
+        console.log(newdbs)
+        res.status(200).json(newdbs)
     }catch(error){
         res.status(500).json({Error: error.message})
     }

@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask'
-import About from './components/About'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import Tasks from '../components/Tasks'
+import AddTask from '../components/AddTask'
 
-function App() {
+function Index() {
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([])
 
@@ -30,7 +28,7 @@ function App() {
     return data
   } 
 
-  //Fetch Tasks
+  //Fetch Task
   const fetchTask = async (id) => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`)
     const data = await res.json()
@@ -40,17 +38,15 @@ function App() {
 
   //Add Task
   const addTask = async ( task ) => {
-    const res = await fetch('http://localhost:5000/tasks', {
+    const res = await fetch('./api/addTask', {
       method:'POST',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(task),
+      body: JSON.stringify({ data: task }),
     })
 
-    const data = await res.json()
-
-    setTasks([...tasks, data])
+    setTasks([...tasks, task])
 
     //const id = Math.floor(Math.random() * 1000) + 1
     //const newTask = { id, ...task }
@@ -88,16 +84,9 @@ function App() {
   }
 
   return (
-    <Router>
     <div className="container">
       <Header onAdd={() => setShowAddTask(!showAddTask)} 
       showAdd={showAddTask} />
-      
-      <Route 
-        path='/' 
-        exact 
-        render={(props) => (
-          <>
             {showAddTask && <AddTask onAdd={addTask} />}
             {tasks.length > 0 ? (
               <Tasks 
@@ -108,14 +97,9 @@ function App() {
             ) : (
               'No Tasks to Show'
             )}
-          </>
-        )} 
-      />
-      <Route path='/about' component={About} />
       <Footer /> 
     </div>
-    </Router>
   )
 }
 
-export default App;
+export default Index;

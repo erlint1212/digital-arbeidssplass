@@ -4,10 +4,21 @@ const client = new fdb.Client({ secret: 'fnAELYXgRRACBR-kCQacO33ORjThUVGXdcnvV_O
 const {
   Paginate,
   Get,
+  Select,
+  Match,
+  Index,
+  Create,
   Collection,
   Lambda,
+  Var,
+  Join,
+  Ref,
+  Call,
   Documents,
-  Map
+  Map,
+  Update,
+  If,
+  Function: Fn
 } = fdb.query
 
 export default async function handler(req,res) {
@@ -22,17 +33,8 @@ export default async function handler(req,res) {
             Lambda(x => Get(x))
             )
         )
-        
-        const newdbs = dbs.data.map((db) => {
-            return { ...db.data };
-          });
-        const dbsmap = dbs.data.map((Tasks) => {
-            Tasks.id = Tasks.ref.id
-            delete Tasks.ref
-            return Tasks
-        })
-        console.log(dbs.data.id)
-        res.status(200).json(dbs)
+        console.log(newdbs)
+        res.status(200).json(newdbs)
     }catch(error){
         res.status(500).json({Error: error.message})
     }
