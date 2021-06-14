@@ -2,30 +2,27 @@ const fdb = require('faunadb')
 const client = new fdb.Client({ secret: 'fnAELYXgRRACBR-kCQacO33ORjThUVGXdcnvV_O0' })
 
 const {
-  Paginate,
-  Get,
-  Collection,
-  Lambda,
-  Documents,
-  Map,
-  Var
+  Ref,
+  Delete,
+  Collection
 } = fdb.query
 
 export default async function handler(req,res) {
+    const siteId = req.query.id
+    //console.log('Test 2',id)
+    console.log('Test 2',siteId)
+
     try {
         const dbs = await client.query(
-            Map(
-            Paginate (
-                Documents(
-                Collection('Tasks')
+            Delete(
+                Ref(
+                    Collection('Tasks'),
+                    `${siteId}`
                 )
-            ),
-            Lambda('ref', Get(Var('ref')))
             )
         )
-
-        console.log(newdbs)
-        res.status(200).json(newdbs)
+        console.log(dbs)
+        res.status(200).json(dbs)
     }catch(error){
         res.status(500).json({Error: error.message})
     }

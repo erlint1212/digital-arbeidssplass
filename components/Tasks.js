@@ -4,8 +4,8 @@ const Tasks = ({ tasks, onDelete, onToggle }) => {
     return (
         <>
             {tasks.map((task) => (
-                <Task key={task.ref} 
-                task={task.data} 
+                <Task key={task.id} 
+                task={task} 
                 onDelete={onDelete}
                 onToggle={onToggle} 
                 />
@@ -15,7 +15,3 @@ const Tasks = ({ tasks, onDelete, onToggle }) => {
 }
 
 export default Tasks
-
-// const newdbs = dbs.data.map((db) => {
-//     return { ...db.data };
-//   });
