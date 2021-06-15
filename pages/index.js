@@ -7,6 +7,8 @@ import useSWR, { mutate } from 'swr'
 
 function Index() {
   const [showAddTask, setShowAddTask] = useState(false)
+  //Oppdaterer nettside uten SWR
+
   //const [tasks, setTasks] = useState([])
 
   // const getTasks = dbs.data.map((Tasks) => {
