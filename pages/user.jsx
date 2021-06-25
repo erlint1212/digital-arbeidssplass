@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import useSWR, { mutate } from 'swr'
 import { useForm, FormProvider, useFormContext } from 'react-hook-form'
-import { Container } from '@material-ui/core'
+import { Container, Grid, Snackbar } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import KjenteAvik from '../components/KjenteAvik'
@@ -11,6 +12,7 @@ import FeilSkader from '../components/FeilSkader'
 import Avslut from '../components/Avslut'
 import SkjemaHeader from '../components/SkjemaHeader'
 import { SkjemaFooter } from '../components/SkjemaFooter'
+import Cookies from 'js-cookie'
 
 let renderCount = 0;
 
@@ -162,16 +164,34 @@ let renderCount = 0;
 //   }
 // }
 
+
+
 function Index() {
-  renderCount++;
+
+  //SnackBar alert for sucess
+  const [open, setOpen] = useState(false);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   //const [data, setData] = useState([])
   // const {
   //   register,
   //   handleSubmit,
   //   error
   // } = useForm();
+  const user = Cookies.get('Usernamee')
 
-  const methods = useForm()
+  const methods = useForm({Bruker: `${user}`})
   //const { reset, watch } = useForm()
   //const { watch } = useForm()
 
@@ -184,7 +204,7 @@ function Index() {
       },
       body: JSON.stringify(data),
     })
-    alert('Skjema sendt inn')
+    setOpen(true);
   }
 
   // useEffect(() => {
@@ -302,6 +322,11 @@ function Index() {
             className='btn btn-block' />
           </form>
         </FormProvider>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Document Sent!
+          </Alert>
+        </Snackbar>
         <Footer /> 
       </Container>
     </>

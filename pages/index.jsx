@@ -44,11 +44,13 @@ function innlogging() {
                 if (password == data[user].Passord) {
                     if (data[user].Admin == true) {
                         Cookies.set('username', `${data[user].Navn} ${data[user].Etternavn}`)
+                        Cookies.set('Usernamee', `${user}`)
                         Cookies.set('admin', `${data[user].Admin}`)
                         router.push('/admin')
                     }
                     else if (data[user].Admin == false) {
                         Cookies.set('username', `${data[user].Navn} ${data[user].Etternavn}`)
+                        Cookies.set('Usernamee', `${user}`)
                         Cookies.set('admin', `${data[user].Admin}`)
                         router.push('/user')
                     }
