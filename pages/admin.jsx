@@ -4,7 +4,7 @@ import Selections from '../components/Selections';
 import { useRouter } from 'next/router';
 import { Container } from '@material-ui/core';
 import useSWR, { mutate } from 'swr';
-import { Grid, createMuiTheme } from '@material-ui/core';
+import { Grid, createMuiTheme, Button } from '@material-ui/core';
 
 function admin() {
   const router = useRouter()
@@ -24,8 +24,12 @@ function admin() {
   });
 
   const useRout = (id) => {
-    router.push(`Dokument/${id}`)
+    router.push(`/Dokument/${id}`)
   }
+
+  const handleClick = () => {
+    router.push('/user')
+  };
   
   
 
@@ -33,6 +37,7 @@ function admin() {
       <div>
         <Container>
           <Header />
+          <Button variant="contained" onClick={handleClick}>Create document</Button>
           <h1>User Data</h1>
           {users && users.length > 0 ? (
             <Grid container spacing={3}> 

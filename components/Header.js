@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Button from './Button'
+import { Button } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 
@@ -18,6 +18,13 @@ const Header = ({ title, name, surname, renderCount }) => {
             return 'error'
         }
     }
+
+    const LoggUt = () => {
+        Cookies.remove('username')
+        Cookies.remove('Usernamee')
+        Cookies.remove('admin')
+        router.push('/')
+    }
     
 
     return (
@@ -26,6 +33,9 @@ const Header = ({ title, name, surname, renderCount }) => {
             <div>
                 <h4>Bruker: {brukernavn}</h4><br />
                 <h4>Admintiatelse: {CheckAdmin()} </h4>
+            </div>
+            <div>
+                <Button color="secondary" onClick={LoggUt}>Logg ut</Button>
             </div>
             {/* <p>{renderCount}</p> */}
         </header>
