@@ -2,11 +2,26 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import Footer from '../components/Footer'
 import { useEffect, useState } from 'react'
-import { Container, TextField, Button } from '@material-ui/core'
+import { Container, TextField, Button, Snackbar } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert';
 import Cookies from 'js-cookie'
 
 function innlogging() {
     const [error, setError] = useState()
+    //SnackBar alert for sucess
+    const [open, setOpen] = useState(false);
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+        return;
+        }
+
+        setOpen(false);
+    };
 
     const router = useRouter()
     const {
@@ -60,16 +75,19 @@ function innlogging() {
                 } else {
                     console.log('The password you wrote is wrong try again')
                     //ErrorMessage = 'The password you wrote is wrong, try again'
-                    setError('The password you wrote is wrong try again')
+                    setError('The password you wrote is wrong, try again')
+                    setOpen(true);
                 }
             }
             else {
                 console.log('User does not exist')
                 setError('User does not exist')
                 //ErrorMessage = 'The password you wrote is wrong try again'
+                setOpen(true);
             }
         } else {
             setError('Write password and user')
+            setOpen(true);
         }
         
 
@@ -101,10 +119,12 @@ function innlogging() {
                         <Button style={{marginTop:'25px'}} variant="outlined" color="primary" type='submit' value='submit'>submit</Button>
                     </form>
                 </div>
-                <div className='item'>
-                    <p style={{color:'red'}}>{error}</p>
-                </div>
             </div>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                    {error}
+                </Alert>
+            </Snackbar>
             <Footer />
         </Container>
         </>
