@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core'
 const Footer = () => {
     return (
         <footer>
-            <Box textAlign='center' pt={{xs: 5, sm: 10}} pb={{xs:5, sm:0}} width="100vw" style={{backgroundColor:'lightgreen'}}>
+            <Box textAlign='center' pt={{xs: 5, sm: 5}} pb={{xs:5, sm:0}} style={{backgroundColor:'lightgreen'}}>
                 Copyright &copy; 2021 <br /> 
                 v1.0.0
             </Box>
