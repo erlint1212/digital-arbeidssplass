@@ -2,24 +2,25 @@ import PropTypes from 'prop-types'
 import Button from './Button'
 import { useRouter } from 'next/router'
 
-const Header = ({ title, onAdd, showAdd }) => {
+const Header = ({ title, name, surname, renderCount }) => {
     //const location = useLocation()
     const router = useRouter()
 
     return (
-        <header className='header'>
+        <header style={{backgroundColor:'lightgreen'}} className='header'>
             <h1>{title}</h1>
-            {router.pathname === '/' && <Button 
-                color={showAdd ? 'red' : 'green'} 
-                text={showAdd ? 'Close' : 'Add'} 
-                onClick={onAdd} 
-            />}
+            <div>
+                <h4>Bruker: {name} {surname}</h4>
+            </div>
+            {/* <p>{renderCount}</p> */}
         </header>
     )
 }
 
 Header.defaultProps = {
-    title: 'Task Tracker',
+    title: 'Profilteam as',
+    name: 'User',
+    surname: 'bababooey'
 }
 
 Header.propTypes = {
