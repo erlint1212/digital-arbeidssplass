@@ -67,7 +67,7 @@ function innlogging() {
                         Cookies.set('username', `${data[user].Navn} ${data[user].Etternavn}`)
                         Cookies.set('Usernamee', `${user}`)
                         Cookies.set('admin', `${data[user].Admin}`)
-                        router.push('/user')
+                        router.push('/BrukerHub')
                     }
                     else {
                         console.log('Somthing went wrong')
