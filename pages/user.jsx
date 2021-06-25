@@ -189,9 +189,10 @@ function Index() {
   //   handleSubmit,
   //   error
   // } = useForm();
-  const user = Cookies.get('Usernamee')
 
-  const methods = useForm({Bruker: `${user}`})
+  const methods = useForm()
+  const user = Cookies.get('username')
+  methods.register('Bruker', {value: user});
   //const { reset, watch } = useForm()
   //const { watch } = useForm()
 
