@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Footer from '../components/Footer'
 import { useEffect, useState } from 'react'
 import { Container, TextField, Button } from '@material-ui/core'
+import Cookies from 'js-cookie'
 
 function innlogging() {
     const [error, setError] = useState()
@@ -42,9 +43,11 @@ function innlogging() {
             if (data[user] != undefined) {
                 if (password == data[user].Passord) {
                     if (data[user].Admin == true) {
+                        Cookies.set('username', `${data[user].Navn} ${data[user].Etternavn}`)
                         router.push('/admin')
                     }
                     else if (data[user].Admin == false) {
+                        Cookies.set('username', `${data[user].Navn} ${data[user].Etternavn}`)
                         router.push('/user')
                     }
                     else {
